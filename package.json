@@ -1,0 +1,30 @@
+{
+  "name": "electron-webpack-simple-boilerplate",
+  "version": "1.0.0",
+  "main": "build/main.js",
+  "scripts": {
+    "start": "electron .",
+    "prestart": "concurrently \"npm run build-renderer\" \"npm run build-main\"",
+    "build-renderer": "webpack --config webpack.renderer.config.js --progress --colors",
+    "build-main": "webpack --config webpack.main.config.js --progress --colors"
+  },
+  "license": "MIT",
+   "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo",
+    "webpack",
+    "boilerplate"
+  ],
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-preset-env": "^1.6.0",
+    "concurrently": "^3.5.0",
+    "copy-webpack-plugin": "^4.0.1",
+    "electron": "^1.6.11",
+    "webpack": "^3.2.0"
+  }
+}
