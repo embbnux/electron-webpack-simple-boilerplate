@@ -1,6 +1,6 @@
 {
   "name": "electron-webpack-simple-boilerplate",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "build/main.js",
   "description": "A electron webpack simple boilerplate",
   "scripts": {
