@@ -1,6 +1,7 @@
-import electron from 'electron';
+import electron, { dialog } from 'electron';
 import path from 'path';
 import url from 'url';
+import { autoUpdater } from "electron-updater"
 
 // Module to control application life.
 const app = electron.app
@@ -38,6 +39,35 @@ function createWindow () {
   })
 }
 
+
+// auto updater
+autoUpdater.autoDownload = false;
+autoUpdater.on('update-available', (info) => {
+  dialog.showMessageBox({
+    type: 'info',
+    title: 'Found Updates',
+    message: 'Found updates, do you want update now?',
+    buttons: ['Sure', 'No']
+  }, (buttonIndex) => {
+    if (buttonIndex === 0) {
+      autoUpdater.downloadUpdate()
+    }
+  });
+});
+autoUpdater.on('error', (event, error) => {
+  dialog.showErrorBox('Error: ', error == null ? "unknown" : (error.stack || error).toString())
+});
+autoUpdater.on('update-downloaded', (info) => {
+  dialog.showMessageBox({
+    title: 'Install Updates',
+    message: 'Updates downloaded, application will be quit for update...'
+  }, () => {
+    setImmediate(() => autoUpdater.quitAndInstall())
+  });
+});
+app.on('ready', function()  {
+  autoUpdater.checkForUpdates();
+});
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.

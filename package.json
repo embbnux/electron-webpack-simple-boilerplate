@@ -2,14 +2,29 @@
   "name": "electron-webpack-simple-boilerplate",
   "version": "1.0.0",
   "main": "build/main.js",
+  "description": "A electron webpack simple boilerplate",
   "scripts": {
+    "postinstall": "install-app-deps",
     "start": "electron .",
-    "prestart": "concurrently \"npm run build-renderer\" \"npm run build-main\"",
-    "build-renderer": "webpack --config webpack.renderer.config.js --progress --colors",
-    "build-main": "webpack --config webpack.main.config.js --progress --colors"
+    "prestart": "npm run build-main",
+    "build-renderer": "webpack --config webpack.renderer.config.js --progress --colors --watch",
+    "build-main": "webpack --config webpack.main.config.js --progress --colors",
+    "build-main-pro": "NODE_ENV=production webpack --config webpack.main.config.js --progress --colors",
+    "build-renderer-pro": "NODE_ENV=production webpack --config webpack.renderer.config.js --progress --colors",
+    "build-pro": "concurrently \"npm run build-main-pro\" \"npm run build-renderer-pro\"",
+    "build-package": "build --publish never",
+    "package": "rm -rf build && npm run build-pro && build --publish never",
+    "package-all": "npm run build-pro && build -mwl",
+    "package-linux": "npm run build-pro && build --linux",
+    "package-win": "npm run build-pro && build --win --x64"
   },
   "license": "MIT",
-   "keywords": [
+  "author": {
+    "name": "Embbnux Ji",
+    "email": "embbnux@embbnux.com",
+    "url": "https://github.com/embbnux"
+  },
+  "keywords": [
     "Electron",
     "quick",
     "start",
@@ -18,6 +33,48 @@
     "webpack",
     "boilerplate"
   ],
+  "build": {
+    "productName": "Electron Webpack",
+    "appId": "com.embbnux.electron-webpack",
+    "files": [
+      "build/",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "build",
+      "output": "release"
+    },
+    "publish": [
+      {
+        "provider": "github"
+      }
+    ],
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "AppImage"
+      ]
+    }
+  },
   "devDependencies": {
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
@@ -25,6 +82,10 @@
     "concurrently": "^3.5.0",
     "copy-webpack-plugin": "^4.0.1",
     "electron": "^1.6.11",
+    "electron-builder": "^19.16.2",
     "webpack": "^3.2.0"
+  },
+  "dependencies": {
+    "electron-updater": "^2.7.1"
   }
 }

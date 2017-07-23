@@ -7,7 +7,7 @@ const buildPath = path.resolve(__dirname, 'build');
 const config = {
   devtool: 'source-map',
   target: 'electron-main',
-  entry: './src/app/main.js',
+  entry: './src/main.js',
   output: {
     path: buildPath,
     filename: 'main.js',
@@ -20,7 +20,7 @@ const config = {
       },
     }),
     new CopyWebpackPlugin([
-      { from: 'src/app/index.html', to: 'index.html' },
+      { from: 'src/index.html', to: 'index.html' },
     ]),
   ],
   module: {

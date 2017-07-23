@@ -9,7 +9,7 @@ const devtool = NODE_ENV === 'development' ? 'inline-source-map' : 'source-map';
 const config = {
   devtool,
   target: 'electron-renderer',
-  entry: './src/app/renderer.js',
+  entry: './src/renderer.js',
   output: {
     path: buildPath,
     filename: 'renderer.js',
