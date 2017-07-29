@@ -4,7 +4,7 @@
   "main": "build/main.js",
   "description": "A electron webpack simple boilerplate",
   "scripts": {
-    "postinstall": "install-app-deps",
+    "postinstall": "electron-builder install-app-deps",
     "start": "electron .",
     "prestart": "npm run build-main",
     "build-renderer": "webpack --config webpack.renderer.config.js --progress --colors --watch",
@@ -14,10 +14,11 @@
     "build-pro": "concurrently \"npm run build-main-pro\" \"npm run build-renderer-pro\"",
     "build-package": "build --publish never",
     "package": "rm -rf build && npm run build-pro && build --publish never",
-    "package-release": "rm -rf build && npm run build-pro && build -ml --publish always",
     "package-all": "npm run build-pro && build -mwl",
     "package-linux": "npm run build-pro && build --linux",
-    "package-win": "npm run build-pro && build --win --x64"
+    "package-win": "npm run build-pro && build --win",
+    "package-mac": "npm run build-pro && build --mac",
+    "package-mac-win": "npm run build-pro && build -- --mac --win"
   },
   "license": "MIT",
   "author": {
